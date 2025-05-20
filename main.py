@@ -1,37 +1,27 @@
 import asyncio
 import logging
 
-from aiogram import Bot, Dispatcher, types
-from aiogram.filters import CommandStart, Command
+from aiogram import Bot, Dispatcher
+from aiogram.enums import ParseMode
+from aiogram.client.default import DefaultBotProperties
 
-from config import config
+from config import settings
+from routers.commands.base_commands import router as user_commands_router
+from routers.handlers import router as handlers_router
 
 
-bot = Bot(token=config.BOT_TOKEN)
 dp = Dispatcher()
 
-
-@dp.message(CommandStart())
-async def handle_start(message: types.Message):
-    await message.answer(f"Hello, {message.from_user.full_name}")
-
-
-@dp.message(Command(commands=["help", "pomogi"]))
-async def handle_help(message: types.Message):
-    await message.answer("This is help message")
-
-
-@dp.message()
-async def answer(message: types.Message):
-    await bot.send_message(
-        chat_id=message.chat.id,
-        text="Emin cmo",
-    )
-    await message.answer(text=message.text)
+dp.include_router(user_commands_router)
+dp.include_router(handlers_router)
 
 
 async def main():
     logging.basicConfig(level=logging.INFO)
+    bot = Bot(
+        token=settings.bot_token,
+        default=DefaultBotProperties(parse_mode=ParseMode.HTML),
+    )
     await dp.start_polling(bot)
 
 
