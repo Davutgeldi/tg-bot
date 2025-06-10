@@ -11,17 +11,15 @@ class ServiceName(Enum):
     other = "other"
 
 
-class ServicesCallbackData(CallbackData, prefix="services"):
+class ServicesCallbackData(CallbackData, prefix="service"):
     service: ServiceName
 
 
 def build_services_kb() -> InlineKeyboardMarkup:
     button_spotify = InlineKeyboardButton(
         text="Spotify",
-        callback_data=ServicesCallbackData(
-            service=ServiceName.spotify
-        ).pack(),
-    ) 
+        callback_data=ServicesCallbackData(service=ServiceName.spotify).pack(),
+    )
 
     button_apple_music = InlineKeyboardButton(
         text="Apple Music",
@@ -49,5 +47,5 @@ def build_services_kb() -> InlineKeyboardMarkup:
             [button_tg_premium, button_other],
         ]
     )
-    
+
     return markup

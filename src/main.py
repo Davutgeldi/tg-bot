@@ -6,15 +6,16 @@ from aiogram.enums import ParseMode
 from aiogram.client.default import DefaultBotProperties
 
 from src.config import settings
-from src.routers.commands.base_commands import router as user_commands_router
-from src.routers.callback_handlers.services import router as services_router
-
+from src.routers.commands.base_commands import router as base_commands_router
+from src.routers.commands.user_commands import router as user_commands_router
+from src.routers.request_handlers.spotify_handler import router as request_handlers_router
 
 async def main():
     dp = Dispatcher()
 
+    dp.include_router(base_commands_router)
     dp.include_router(user_commands_router)
-    dp.include_router(services_router)
+    dp.include_router(request_handlers_router)
 
     logging.basicConfig(level=logging.INFO)
     bot = Bot(
