@@ -8,6 +8,7 @@ class SubscriptionPlan(Enum):
     individual = "Индивидуальный"
     duo = "Дуо (для двоих)"
     family = "Семейный (6 человек)"
+    back = "back"
 
 
 class SubscriptionCallbackData(CallbackData, prefix="subscription"):
@@ -30,11 +31,17 @@ def build_subscription_kb() -> InlineKeyboardMarkup:
         callback_data=SubscriptionCallbackData(plan=SubscriptionPlan.family).pack(),
     )
 
+    button_back = InlineKeyboardButton(
+        text="⬅️ Назад",
+        callback_data=SubscriptionCallbackData(plan=SubscriptionPlan.back).pack(),
+    )
+
     markup = InlineKeyboardMarkup(
         inline_keyboard=[
             [button_individual],
             [button_duo],
             [button_family],
+            [button_back],
         ],
     )
 

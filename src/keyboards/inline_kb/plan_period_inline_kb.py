@@ -8,6 +8,7 @@ class SubscriptionPeriod(Enum):
     month = "месяц"
     three_months = "3 месяца"
     six_months = "6 месяцев"
+    back = "back"
 
 
 class SubsPeriodCallbackData(CallbackData, prefix="period"):
@@ -30,11 +31,19 @@ def build_plan_period_kb() -> InlineKeyboardMarkup:
         callback_data=SubsPeriodCallbackData(period=SubscriptionPeriod.six_months).pack(),
     )
 
+    button_back = InlineKeyboardButton(
+        text="⬅️ Назад",
+        callback_data=SubsPeriodCallbackData(period=SubscriptionPeriod.back).pack(),
+    )
+
+    
+
     markup = InlineKeyboardMarkup(
         inline_keyboard=[
             [button_month],
             [button_three_months],
             [button_six_months],
+            [button_back],
         ]
     )
 

@@ -6,4 +6,5 @@ class Request(StatesGroup):
     subscription_plan = State()
     period = State()
     email = State()
+    email_only = State()
     password = State()
