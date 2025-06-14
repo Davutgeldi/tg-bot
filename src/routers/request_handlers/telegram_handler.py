@@ -53,6 +53,19 @@ async def handle_month_plan(
     await state.set_state(Request.contact)
 
 
+@router.callback_query(TgPlanCallbackData.filter(F.plan == TgPlan.stars))
+async def handle_start_plan(
+    callback: types.CallbackQuery,
+    state: FSMContext,
+):
+    await state.update_data(plan=TgPlan.stars.value)
+
+    await callback.message.delete()
+
+    await callback.message.answer(text=TgForms.NUMBER_PROMPT, reply_markup=share_contact_kb())
+    await state.set_state(Request.contact)
+
+
 @router.callback_query(TgPlanCallbackData.filter(F.plan == TgPlan.year))
 async def handle_year_plan(
     callback: types.CallbackQuery,
@@ -72,6 +85,7 @@ async def handle_number(
     state: FSMContext,
 ):
     username = message.from_user.username
+    data = await state.get_data()
     
     if message.contact:
         phone_number = message.contact.phone_number
@@ -81,7 +95,11 @@ async def handle_number(
         
         await message.bot.send_message(
             chat_id=settings.admin_chat_id,
-            text=TgForms.get_request_text(phone_number, username)
+            text=TgForms.get_request_text(
+                data,
+                phone_number, 
+                username,
+            )
         )
         await message.delete()
         return

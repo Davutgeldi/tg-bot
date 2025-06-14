@@ -19,9 +19,10 @@ class TgForms:
     )
 
     @staticmethod
-    def get_request_text(phone_number: str, username: str | None = None) -> str:
+    def get_request_text(data: dict, phone_number: str, username: str | None = None) -> str:
         return (
     "┏━━━━━━━━━━━━━━━━━━━┓\n"
+    f"<b>🔹 Тариф:</b>   <code>{data.get('plan').capitalize()}</code>\n"
     f"<b>🔹 Номер:</b>   <code>{phone_number}</code>\n"
     f"<b>🔹 Username:</b>   @{username if username else 'Username отсутствует'}\n"
     "┗━━━━━━━━━━━━━━━━━━━┛\n\n"
