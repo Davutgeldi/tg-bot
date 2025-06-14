@@ -1,4 +1,5 @@
 from aiogram import F, Router, types
+from aiogram.types import ReplyKeyboardRemove
 from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
 
@@ -21,4 +22,4 @@ async def handle_stop(
 ):
     await state.clear()
     await message.delete()
-    await message.answer(text=BotMessages.CANCEL_TEXT)
+    await message.answer(text=BotMessages.CANCEL_TEXT, reply_markup=ReplyKeyboardRemove())

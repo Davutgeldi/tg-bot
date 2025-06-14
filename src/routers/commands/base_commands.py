@@ -2,7 +2,7 @@ from aiogram import Router, types, F
 from aiogram.filters import CommandStart, Command
 
 from src.keyboards.reply_kb import ButtonText, get_on_start_kb
-from src.keyboards.inline_kb.service_inline_kb import build_services_kb
+from src.keyboards.service_inline_kb import build_services_kb
 from src.messages.base_texts import BotMessages
 
 

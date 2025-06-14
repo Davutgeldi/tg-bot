@@ -35,7 +35,7 @@ class ServiceForms:
     @staticmethod
     def get_email_only_request_text(data: dict, username: str) -> str:
         return (
-            "✅ <b>Заявка успешно оформлена!</b>\n\n"
+            "✅ <b>Новая заявка</b>\n\n"
             "┏━━━━━━━━━━━━━━━━━━━┓\n"
             f"<b>🔹 Сервис:</b>  {data.get('service', '❌').capitalize()}\n"
             f"<b>🔹 Тариф:</b>    {data.get('plan', '❌')}\n"
@@ -43,9 +43,6 @@ class ServiceForms:
             f"<b>🔹 Email:</b>     <code>{data.get('email', '❌')}</code>\n"
             f"<b>🔹 Username:</b>   @{username}\n"
             "┗━━━━━━━━━━━━━━━━━━━┛\n\n"
-            "Оператор создаст для вас аккаунт Spotify 🎶, оплатит его 💳 и пришлет вам логин и пароль 🔑.\n\n"
-            "📩 Вы получите уведомление по окончании\n\n"
-            "<i>Спасибо за выбор нашего сервиса!</i>"
         )
 
     SUCCESS_SUBMIT_TEXT = (

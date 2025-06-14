@@ -3,25 +3,25 @@ from aiogram.fsm.context import FSMContext
 from email_validator import validate_email, EmailNotValidError
 
 
-from src.keyboards.inline_kb.service_inline_kb import ServicesCallbackData, ServiceName
-from src.keyboards.inline_kb.yes_no_inline_kb import YesNoAction, YesNoCallbackData, build_yes_no_inline_kb
-from src.keyboards.inline_kb.service_inline_kb import build_services_kb
-from src.keyboards.inline_kb.edit_email_only_inline_kb import (
+from src.keyboards.service_inline_kb import ServicesCallbackData, ServiceName
+from src.keyboards.spotify_keyboard.yes_no_inline_kb import YesNoAction, YesNoCallbackData, build_yes_no_inline_kb
+from src.keyboards.service_inline_kb import build_services_kb
+from src.keyboards.spotify_keyboard.edit_email_only_inline_kb import (
     EmailOnlyAction, 
     EmailOnlyCallbackData, 
     build_email_only_inline_kb
 )
-from src.keyboards.inline_kb.subscription_inline_kb import (
+from src.keyboards.spotify_keyboard.subscription_inline_kb import (
     build_subscription_kb,
     SubscriptionCallbackData,
     SubscriptionPlan,
 )
-from src.keyboards.inline_kb.plan_period_inline_kb import (
+from src.keyboards.spotify_keyboard.plan_period_inline_kb import (
     SubsPeriodCallbackData,
     SubscriptionPeriod,
     build_plan_period_kb,
 )
-from src.keyboards.inline_kb.confirm_inline_kb import (
+from src.keyboards.spotify_keyboard.confirm_inline_kb import (
     build_confirm_inline_kb, 
     build_edit_data_inline_kb, 
     ReviewActionCallbackData,
@@ -29,7 +29,7 @@ from src.keyboards.inline_kb.confirm_inline_kb import (
     EditAction,
     ReviewAction,
 )
-from src.states.states import Request
+from src.states.spotify_states import Request
 from src.config import settings
 from src.messages.spotify_prompts import ServiceForms
 from src.messages.base_texts import BotMessages
@@ -59,7 +59,6 @@ async def handle_back(
 ):
     await callback.message.delete()
     await state.clear()
-    await callback.message.delete()
     await callback.message.edit_text(
         text=BotMessages.BUTTON,
         reply_markup=build_services_kb(),
@@ -191,7 +190,7 @@ async def handle_email_only_submit(
 ):
     data = await state.get_data()
     username = callback.from_user.username
-
+    
     await callback.bot.send_message(
         chat_id=settings.admin_chat_id,
         text=ServiceForms.get_email_only_request_text(data=data, username=username)
@@ -245,7 +244,7 @@ async def handle_password(
     state: FSMContext,
 ):
     password = message.text
-    
+
     if len(password) < 8:
         await message.answer("❌ Пароль должен содержать минимум 8 символов")
         return
