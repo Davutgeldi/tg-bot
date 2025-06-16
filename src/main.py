@@ -10,6 +10,7 @@ from src.routers.commands.base_commands import router as base_commands_router
 from src.routers.commands.user_commands import router as user_commands_router
 from src.routers.request_handlers.spotify_handler import router as request_handlers_router
 from src.routers.request_handlers.telegram_handler import router as telegram_handler_router
+from src.routers.request_handlers.other_handler import router as other_handler_router
 
 
 async def main():
@@ -19,6 +20,7 @@ async def main():
     dp.include_router(user_commands_router)
     dp.include_router(request_handlers_router)
     dp.include_router(telegram_handler_router)
+    dp.include_router(other_handler_router)
 
     logging.basicConfig(level=logging.INFO)
     bot = Bot(
