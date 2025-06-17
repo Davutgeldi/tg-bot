@@ -243,7 +243,7 @@ async def handle_email(
 async def handle_password(
     message: types.Message,
     state: FSMContext,
-):
+):  
     password = message.text
 
     if len(password) < 8:
@@ -254,8 +254,6 @@ async def handle_password(
         await message.answer("❌ Пароль должен содержать только латинские буквы и символы")
         return
         
-    current_data = await state.get_data()
-
     await state.update_data(password=message.text)
     updated_data = await state.get_data()
 
@@ -287,9 +285,11 @@ async def handle_submit(
         chat_id=settings.admin_chat_id,
         text=ServiceForms.get_request_text(
             data=data, username=username,
-    ),
+        ),
     )
+
     await state.clear()
+
     await callback.message.delete()
     await callback.message.answer(text=ServiceForms.SUCCESS_SUBMIT_TEXT)
 
@@ -311,6 +311,8 @@ async def handle_edit_email(
     callback: types.CallbackQuery,
     state: FSMContext
 ):
+    await callback.message.delete()
+
     await state.set_state(Request.email)
     await callback.message.answer(text=ServiceForms.EMAIL_PROMPT)
 
@@ -320,6 +322,8 @@ async def handle_edit_password(
     callback: types.CallbackQuery,
     state: FSMContext
 ):
+    await callback.message.delete()
+    
     previous_data = await state.get_data()
     await state.set_data(previous_data)
 
