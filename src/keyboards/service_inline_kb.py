@@ -7,8 +7,8 @@ from aiogram.filters.callback_data import CallbackData
 class ServiceName(Enum):
     spotify = "spotify"
     music = "apple music"
-    telegram = "telegram_premium"
-    other = "other"
+    telegram = "telegram premium"
+    other = "Другое"
 
 
 class ServicesCallbackData(CallbackData, prefix="service"):

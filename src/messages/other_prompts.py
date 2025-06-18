@@ -4,7 +4,7 @@ class OtherForms:
         return (
             "✅ <b>Новая заявка</b>\n\n"
             "┏━━━━━━━━━━━━━━━━━━━┓\n"
-            f"<b>🔹 Сервис:</b>  {service}\n"
+            f"<b>🔹 Сервис:</b>  {service.capitalize()}\n"
             f"<b>🔹 Username:</b>   @{username}\n"
             "┗━━━━━━━━━━━━━━━━━━━┛\n\n"
         )
@@ -16,3 +16,18 @@ class OtherForms:
     "<i>📞 Если у вас есть вопросы или нужна помощь — напишите нам в личные сообщения, @podpiski_tm</i>\n\n"
     "Спасибо за доверие! 💙"
     )    
+
+
+    OTHER_SERVICES_TEXT = """
+✨ <b>Другие услуги</b>
+
+
+🎮 <i>Игры:</i> Steam, PUBG, Fortnite, PS Store
+💰 <i>Крипта:</i> Binance, Bybit  
+🤖 <i>AI:</i> ChatGPT, Midjourney  
+💳 <i>Платежи:</i> PayPal, WebMoney  
+💵 <i>"Купить USDT"</i> 
+
+
+Оператор ответит за 5 минут ⏳
+"""
