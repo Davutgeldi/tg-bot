@@ -16,6 +16,8 @@ async def handle_start(message: types.Message):
         reply_markup=get_on_start_kb(),
     )
 
+    await message.answer(BotMessages.BOT_RULES)
+    
     await message.answer(
         text=BotMessages.BUTTON,
         reply_markup=build_services_kb(),
